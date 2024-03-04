@@ -2,7 +2,9 @@
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TesteBackendEnContact.Core.Domain.ContactBook;
 using TesteBackendEnContact.Core.Interface.ContactBook;
@@ -36,14 +38,46 @@ namespace TesteBackendEnContact.Repository
         {
             using var connection = new SqliteConnection(databaseConfig.ConnectionString);
 
-            // TODO
-            var sql = "";
+            await connection.OpenAsync();
 
-            await connection.ExecuteAsync(sql);
+            using var transaction = connection.BeginTransaction();
+
+            var sql = new StringBuilder();
+            sql.AppendLine("DELETE FROM ContactBook WHERE Id = @id;");
+            sql.AppendLine("DELETE FROM sqlite_sequence WHERE name  = 'ContactBook';");
+            sql.AppendLine("UPDATE Contact SET ContactBookId = null WHERE ContactBookId = @id;");
+
+
+            await connection.ExecuteAsync(sql.ToString(), new { id }, transaction);
+            transaction.Commit();
         }
 
+        public async Task<IContactBook> UpdateAsync(int id, string newName)
+        {
+            using var connection = new SqliteConnection(databaseConfig.ConnectionString);
+            await connection.OpenAsync();
 
+            using var transaction = connection.BeginTransaction();
 
+            try
+            {
+                var sql = "UPDATE ContactBook SET Name = @NewName WHERE Id = @Id";
+                await connection.ExecuteAsync(sql, new { Id = id, NewName = newName });
+
+                
+                var updatedContactBook = await connection.QuerySingleOrDefaultAsync<ContactBookDao>("SELECT * FROM ContactBook WHERE Id = @Id", new { Id = id });
+
+                transaction.Commit();
+
+                return updatedContactBook?.Export();
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                
+                throw new Exception("Erro ao atualizar a empresa", ex);
+            }
+        }
 
         public async Task<IEnumerable<IContactBook>> GetAllAsync()
         {
@@ -84,7 +118,8 @@ namespace TesteBackendEnContact.Repository
         public ContactBookDao(IContactBook contactBook)
         {
             Id = contactBook.Id;
-            Name = Name;
+            
+            Name = contactBook.Name;
         }
 
         public IContactBook Export() => new ContactBook(Id, Name);

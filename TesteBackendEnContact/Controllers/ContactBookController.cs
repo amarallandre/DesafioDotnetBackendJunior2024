@@ -25,6 +25,12 @@ namespace TesteBackendEnContact.Controllers
             return await contactBookRepository.SaveAsync(contactBook);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IContactBook> Put(int id, string newName, [FromServices] IContactBookRepository contactBookRepository)
+        {
+            return await contactBookRepository.UpdateAsync(id, newName);
+        }
+
         [HttpDelete]
         public async Task Delete(int id, [FromServices] IContactBookRepository contactBookRepository)
         {

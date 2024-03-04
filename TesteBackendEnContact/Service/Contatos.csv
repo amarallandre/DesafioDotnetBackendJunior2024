@@ -1,0 +1,24 @@
+ContactBookId,CompanyId,Name,Phone,Email,Address
+1,3,João,123456789,joao@example.com,Rua A
+2,2,Maria,987654321,maria@example.com,Rua B
+1,1,Carlos,111222333,carlos@example.com,Rua C
+3,,Sofia,333444555,sofia@example.com,Rua J
+3,,Sofia,333444555,sofia@example.com,Rua J
+3,,Sofiaa,3334445551,sofiaa@example.com,Rua J
+2,,Sofiaaaaaa,33344455513,sofiaa@example.com,Rua J
+3,2,Sofiaaaa,33344455512,sofiaa@example.com,Rua J
+3,2,ASofiaaaa,33344455512,sofiaa@example.com,Rua J
+3,,AASofiaaaa,33344455512,sofiaa@example.com,Rua J
+2,2,Andre,333444555123,sofiaa@example.com,Rua J
+1,,rafael,333444555124,sofiaa@example.com,Rua J
+,2,bruno,333444555125,sofiaa@example.com,Rua J
+2,2,Andree,333444555123,sofiaa@example.com,Rua J
+,2,rafaeel,333444555124,sofiaa@example.com,Rua J
+1,2,brunoo,333444555125,sofiaa@example.com,Rua J
+2,3,brunoo,333444555125,sofiaa@example.com,Rua J
+2,,brunooa,333444555125,sofiaa@example.com,Rua J
+2,3,brunoos,333444555125,sofiaa@example.com,Rua J
+5,,brunoosss,333444555125,sofiaa@example.com,Rua J
+,3,brunooss,333444555125,sofiaa@example.com,Rua J
+1,5,brunoossss,333444555125,sofiaa@example.com,Rua J
+1,,brunoossssa,333444555125,sofiaa@example.com,Rua J

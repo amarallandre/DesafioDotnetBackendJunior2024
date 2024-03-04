@@ -13,6 +13,7 @@ namespace TesteBackendEnContact.Core.Domain.ContactBook.Company
             Id = id;
             ContactBookId = contactBookId;
             Name = name;
+
         }
     }
 }
